@@ -1,0 +1,155 @@
+<html>
+
+<head>
+    <style>
+        table {
+            border: 2px solid black;
+
+        }
+
+        th {
+            border: 1px solid black;
+
+        }
+
+        td {
+            border: 0.5px solid black;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+        var app = angular.module('app1', []);
+        app.controller('crud', function ($scope) {
+            $scope.employees = [{
+
+                    firstname: "Kanchan",
+                    lastname: "Sawalkar",
+                    marks: 60,
+                    editable: false
+
+                },
+                {
+                    firstname: "Priya",
+                    lastname: "Sawalkar",
+                    marks: 75,
+                    editable: false
+
+
+
+                }, {
+                    firstname: "Vrushali",
+                    lastname: "Sonawane",
+                    marks: 20,
+                    editable: false
+
+                }, {
+                    firstname: "Vrushali",
+                    lastname: "Pednekar",
+                    marks: 80,
+                    editable: false
+
+                }, {
+                    firstname: "Mayuri",
+                    lastname: "naik",
+                    marks: 10,
+                    editable: false
+
+                }, {
+                    firstname: "sonu",
+                    lastname: "jadhav",
+                    marks: 50,
+                    editable: false
+
+                }
+            ];
+
+            $scope.entity = {}
+
+            $scope.modify = function (index) {
+                $scope.entity = $scope.employees[index];
+                $scope.entity.index = index;
+                $scope.entity.editable = true;
+            };
+
+
+            $scope.update = function (index) {
+
+                $scope.employees[index].editable = false;
+            };
+
+            $scope.add = function () {
+                $scope.employees.push({
+                    firstname: "",
+                    lastname: "",
+                    marks: "",
+                    editable: true
+
+                })
+            }
+
+        });
+    </script>
+
+</head>
+
+<body ng-app="app1">
+
+    <div ng-controller="crud">
+        <br>
+        <br> 
+
+        <button ng-click="add()">Add new</button>
+        <hr>
+
+        <div>
+
+
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>First Name </th>
+                    <th>Last Name </th>
+                    <th>Marks</th>
+
+                    <th>Modify</th>
+                </tr>
+                <tr ng-repeat="emp in employees">
+                    <td>{{$index + 1}}</td>
+                    <td>
+                        <div ng-hide="emp.editable">{{emp.firstname | uppercase}}</div>
+                        <div ng-show="emp.editable"><input type="text" ng-model="emp.firstname" /></div>
+                    </td>
+                    <td>
+                        <div ng-hide="emp.editable">{{emp.lastname}}</div>
+                        <div ng-show="emp.editable"><input type="text" ng-model="emp.lastname" /></div>
+                    </td>
+                    <td>
+                        <div ng-hide="emp.editable">{{emp.marks}}</div>
+                        <div ng-show="emp.editable"><input type="text" ng-model="emp.marks" /></div>
+                    </td>
+
+
+                    <td>
+
+                        <button ng-hide="emp.editable" ng-click="modify($index)">Modify</button>
+                        <button ng-show="emp.editable" ng-click="update($index)">save</button>
+
+
+
+                    </td>
+
+
+                </tr>
+            </table>
+
+        </div>
+        <hr>
+
+
+
+</body>
+
+</html>
